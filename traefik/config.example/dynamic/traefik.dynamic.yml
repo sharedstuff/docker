@@ -1,0 +1,7 @@
+tls:
+  stores:
+    default:
+      defaultGeneratedCert:
+        resolver: default
+        domain:
+          main: '*.yourdomain.tld'

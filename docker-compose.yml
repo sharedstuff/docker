@@ -1,0 +1,26 @@
+include:
+
+  # #networks
+  - path:
+    - ./#include/docker-compose.#networks.yml
+
+  # pihole
+  - path:
+    - ./pihole/docker-compose.yml
+    - ./#include/docker-compose.pihole.yml
+
+  # traefik
+  - path:
+    - ./traefik/docker-compose.yml
+    - ./#include/docker-compose.traefik.yml
+
+  # whoami
+  - path:
+    - ./whoami/docker-compose.yml
+    - ./#include/docker-compose.whoami.yml
+
+  # homepage
+  - path:
+    - ./homepage/docker-compose.yml
+    - ./#include/docker-compose.homepage.yml
+

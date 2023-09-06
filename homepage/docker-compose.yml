@@ -1,0 +1,17 @@
+services:
+
+  # https://ghcr.io/benphelps/homepage
+  homepage:
+
+    image: ghcr.io/benphelps/homepage:v0.6.29
+
+    volumes:
+
+      - /etc/localtime:/etc/localtime:ro
+
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - ./config:/app/config:ro
+      - ./config/images:/app/public/images:ro
+
+      - ./volumes/logs:/app/logs:cached

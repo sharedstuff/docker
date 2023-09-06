@@ -1,0 +1,51 @@
+# https://doc.traefik.io/traefik/master/reference/static-configuration/file/
+
+api:
+  insecure: true
+
+log:
+  level: DEBUG
+
+providers:
+
+  # dynamic configuration! docker
+  docker:
+    exposedbydefault: false
+    network: traefik
+
+  # dynamic configuration! directory (file)
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+
+entryPoints:
+
+  web:
+    address: :80
+    http:
+      # upgrade all http requests to https
+      redirections:
+        entrypoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+    http:
+      tls:
+        certResolver: default # default resolver
+
+# Enable ping
+ping: {}
+
+certificatesResolvers:
+
+  default:
+    acme:
+      storage: /letsencrypt/acme.json
+      dnsChallenge:
+        provider: hetzner
+        resolvers: # DNS challenge resolvers = DNS provider authoritive NS
+          - hydrogen.ns.hetzner.com.
+          - oxygen.ns.hetzner.com.
+          - helium.ns.hetzner.de.

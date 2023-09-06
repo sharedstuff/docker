@@ -1,0 +1,16 @@
+services:
+
+  # https://hub.docker.com/r/pihole/pihole
+  pihole:
+
+    image: pihole/pihole:2023.05.2
+
+    env_file:
+      - ./config/.env
+
+    volumes:
+
+      - /etc/localtime:/etc/localtime:ro
+
+      - ./volumes/pihole:/etc/pihole:cached
+      - ./volumes/dnsmasq.d:/etc/dnsmasq.d:cached

@@ -1,0 +1,30 @@
+services:
+
+  # https://hub.docker.com/_/traefik
+  traefik:
+
+    image: traefik:v2.10.4
+
+    env_file:
+      - ./config/.env
+
+    volumes:
+
+      - /etc/localtime:/etc/localtime:ro
+
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/dynamic:/etc/traefik/dynamic:ro
+
+      - ./volumes/letsencrypt:/letsencrypt:cached
+
+    healthcheck:
+      # Run traefik healthcheck command
+      # https://doc.traefik.io/traefik/operations/cli/#healthcheck
+      # ! depends on: ping=true
+      test: traefik healthcheck --ping
+      timeout: 5s
+      interval: 15s
+      start_period: 10s
+      retries: 3
