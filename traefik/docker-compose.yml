@@ -1,24 +1,43 @@
+networks:
+  traefik:
+    external: true
+
 services:
 
   # https://hub.docker.com/_/traefik
   traefik:
 
+    # image, restart, build
     image: traefik:v2.10.4
+    restart: unless-stopped
 
+    # container_name, hostname, networks, ports
+    container_name: traefik
+    hostname: traefik
+    networks:
+      - traefik
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+
+    # env_file, environment
     env_file:
       - ./config/.env
 
+    # volumes
     volumes:
-
+      # localtime
       - /etc/localtime:/etc/localtime:ro
-
+      # socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
+      # config
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro
-
+      # other volumes
       - ./volumes/letsencrypt:/letsencrypt:cached
 
+    # healthcheck
     healthcheck:
       # Run traefik healthcheck command
       # https://doc.traefik.io/traefik/operations/cli/#healthcheck
@@ -28,3 +47,22 @@ services:
       interval: 15s
       start_period: 10s
       retries: 3
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.routers.traefik.rule=Host(`traefik.mein-reverseproxy.de`)
+      # homepage
+      - homepage.group=#docker
+      - homepage.name=traefik
+      - homepage.weight=-900
+      - homepage.description=traefik
+      - homepage.showStats=true
+      - homepage.icon=traefik.png
+      - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
+      - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
+      # homepage.widget
+      - homepage.widget.type=traefik
+      - homepage.widget.url=https://traefik.mein-reverseproxy.de

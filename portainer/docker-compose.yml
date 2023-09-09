@@ -1,0 +1,48 @@
+networks:
+  traefik:
+    external: true
+
+services:
+
+  # https://hub.docker.com/r/portainer/portainer-ce
+  portainer:
+
+    # image, restart, build
+    image: portainer/portainer-ce:2.19.0-alpine
+    restart: unless-stopped
+
+    # container_name, hostname, networks, ports
+    container_name: portainer
+    hostname: portainer
+    networks:
+      - traefik
+
+    # env_file, environment
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # socket
+      - /var/run/docker.sock:/var/run/docker.sock
+      # other volumes
+      - ./volumes/data:/data:cached
+
+    # healthcheck
+    healthcheck:
+      test: wget -q --spider http://127.0.0.1:9000
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.routers.portainer.rule=Host(`portainer.mein-reverseproxy.de`)
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+      # homepage
+      - homepage.group=#docker
+      - homepage.name=portainer
+      - homepage.description=portainer/portainer-ce
+      - homepage.showStats=true
+      - homepage.icon=portainer.png
+      - homepage.href=https://portainer.mein-reverseproxy.de
+      - homepage.ping=https://portainer.mein-reverseproxy.de

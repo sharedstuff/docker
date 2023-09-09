@@ -1,16 +1,52 @@
+networks:
+  traefik:
+    external: true
+
 services:
 
   # https://hub.docker.com/r/pihole/pihole
   pihole:
 
+    # image, restart, build
     image: pihole/pihole:2023.05.2
+    restart: unless-stopped
 
+    # container_name, hostname, networks, ports
+    container_name: pihole
+    hostname: pihole
+    networks:
+      - traefik
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 8053:8053
+
+    # env_file, environment
     env_file:
       - ./config/.env
 
+    # volumes
     volumes:
-
+      # localtime
       - /etc/localtime:/etc/localtime:ro
-
+      # other volumes
       - ./volumes/pihole:/etc/pihole:cached
       - ./volumes/dnsmasq.d:/etc/dnsmasq.d:cached
+
+    # healthcheck
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.services.pihole.loadbalancer.server.port=8053
+      - traefik.http.routers.pihole.rule=Host(`pihole.mein-reverseproxy.de`)
+      # homepage
+      - homepage.group=#docker
+      - homepage.name=pihole
+      - homepage.weight=-1000
+      - homepage.description=pihole/pihole
+      - homepage.showStats=true
+      - homepage.icon=pi-hole.png
+      - homepage.href=https://pihole.mein-reverseproxy.de/admin
+      - homepage.ping=https://pihole.mein-reverseproxy.de/admin

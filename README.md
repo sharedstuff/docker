@@ -3,8 +3,9 @@ a set of Docker examples
   
   
 # Conventions
-TBD
-  
+
+## Custom network "traefik"
+`docker network create --ipv6 --subnet 172.18.0.0/16 --subnet fd00::3:0/112 traefik`
   
 # Docker Images used
 
