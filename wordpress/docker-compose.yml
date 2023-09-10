@@ -1,0 +1,136 @@
+networks:
+
+  traefik:
+    external: true
+
+  default:
+    enable_ipv6: true
+
+services:
+
+  # https://hub.docker.com/_/mariadb
+  mariadb:
+
+    # image, restart, build, command
+    image: mariadb:11.0.3-jammy
+    restart: unless-stopped
+
+    # container_name, hostname, networks, ports
+    networks:
+      - default
+
+    # env_file, environment
+    env_file:
+      - ./config/mariadb.env
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # other volumes
+      - ./volumes/mariadb:/var/lib/mysql:cached
+
+    # healthcheck
+    healthcheck:
+      test: healthcheck.sh --su-mysql --connect --innodb_initialized
+      start_period: 15s
+
+    # labels
+    labels:
+      # homepage
+      - homepage.group=wordpress
+      - homepage.name=mariadb
+      - homepage.weight=-200
+      - homepage.description=mariadb
+      - homepage.showStats=true
+      - homepage.icon=mariadb.png
+
+  # https://hub.docker.com/_/wordpress
+  wordpress:
+
+    depends_on:
+
+      mariadb:
+        condition: service_healthy
+        restart: true
+
+    # image, restart, build, command
+    image: wordpress:6.3.0-php8.2-fpm-alpine
+    restart: unless-stopped
+
+    # container_name, hostname, networks, ports
+    networks:
+      - default
+
+    # env_file, environment
+    env_file:
+      - ./config/wordpress.env
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # other volumes
+      - ./volumes/wordpress:/var/www/html:cached
+
+    # healthcheck
+    healthcheck:
+      test: netstat -tnlp | grep fpm -q
+
+    # labels
+    labels:
+      # homepage
+      - homepage.group=wordpress
+      - homepage.name=wordpress
+      - homepage.weight=-100
+      - homepage.description=wordpress:fpm-alpine
+      - homepage.showStats=true
+      - homepage.icon=wordpress.png
+
+  # https://hub.docker.com/_/nginx
+  nginx:
+
+    depends_on:
+
+      wordpress:
+        condition: service_healthy
+        restart: true
+
+    # image, restart, build, command
+    image: nginx:1.25-alpine3.18
+    restart: unless-stopped
+
+    # container_name, hostname, networks, ports
+    networks:
+      - default
+      - traefik
+
+    # env_file, environment
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # config
+      - ./config/nginx:/etc/nginx/conf.d:ro
+      # other volumes
+      - ./volumes/wordpress:/var/www/html:cached
+
+    # healthcheck
+    healthcheck:
+      test: curl -s --fail http://localhost
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.routers.wordpress.rule=Host(`wordpress.mein-reverseproxy.de`)
+      - traefik.http.services.wordpress.loadbalancer.server.port=80
+      # homepage
+      - homepage.group=wordpress
+      - homepage.name=nginx
+      - homepage.description=nginx
+      - homepage.showStats=true
+      - homepage.icon=nginx.png
+      - homepage.href=https://wordpress.mein-reverseproxy.de
+      - homepage.ping=https://wordpress.mein-reverseproxy.de

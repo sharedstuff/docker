@@ -14,8 +14,6 @@ services:
     command: --admin-password-file /tmp/password
 
     # container_name, hostname, networks, ports
-    container_name: portainer
-    hostname: portainer
     networks:
       - traefik
 

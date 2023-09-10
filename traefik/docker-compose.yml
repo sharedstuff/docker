@@ -12,8 +12,6 @@ services:
     restart: unless-stopped
 
     # container_name, hostname, networks, ports
-    container_name: traefik
-    hostname: traefik
     networks:
       - traefik
     ports:
