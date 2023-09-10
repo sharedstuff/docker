@@ -83,7 +83,7 @@ services:
       - homepage.group=wordpress
       - homepage.name=wordpress
       - homepage.weight=-100
-      - homepage.description=wordpress:fpm-alpine
+      - homepage.description=wordpress
       - homepage.showStats=true
       - homepage.icon=wordpress.png
 
