@@ -8,7 +8,7 @@ services:
   # https://hub.docker.com/_/alpine/
   whoami:
 
-    # image, restart, build
+    # image, restart, build, command
     image: traefik/whoami-alpine:v1.10.1-3.18.3
     restart: unless-stopped
     build:

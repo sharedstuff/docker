@@ -7,7 +7,7 @@ services:
   # https://hub.docker.com/_/traefik
   traefik:
 
-    # image, restart, build
+    # image, restart, build, command
     image: traefik:v2.10.4
     restart: unless-stopped
 

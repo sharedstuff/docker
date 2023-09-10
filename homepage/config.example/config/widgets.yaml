@@ -1,0 +1,29 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/widgets
+
+- resources:
+    label: SYS
+    uptime: true
+
+- resources:
+    label: SYS
+    cputemp: true
+
+- resources:
+    label: CPU
+    cpu: true
+
+- resources:
+    label: RAM
+    memory: true
+
+- resources:
+    label: NVM
+    disk: /
+
+- datetime:
+    text_size: 4xl
+    locale: de
+    format:
+      dateStyle: short
+      timeStyle: short

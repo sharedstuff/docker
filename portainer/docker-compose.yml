@@ -7,9 +7,11 @@ services:
   # https://hub.docker.com/r/portainer/portainer-ce
   portainer:
 
-    # image, restart, build
+    # image, restart, build, command
     image: portainer/portainer-ce:2.19.0-alpine
     restart: unless-stopped
+
+    command: --admin-password-file /tmp/password
 
     # container_name, hostname, networks, ports
     container_name: portainer
@@ -25,6 +27,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       # socket
       - /var/run/docker.sock:/var/run/docker.sock
+      # config
+      - ./config/password:/tmp/password:ro
       # other volumes
       - ./volumes/data:/data:cached
 

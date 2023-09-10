@@ -1,0 +1,96 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+
+# All predefined icons can be found on: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/
+
+- Specs:
+
+    - Beelink Mini S12:
+        - abbr: SYS
+          href: https://www.bee-link.com/beelink-mini-s12-n95-mini-pc-clone-1
+
+    - Intel N95 (12th gen | 4c/4t | 3,4GHz | 15W TDP):
+        - abbr: CPU
+          href: https://ark.intel.com/content/www/us/en/ark/products/231800/intel-processor-n95-6m-cache-up-to-3-40-ghz.html
+
+    - 8 GB DDR4:
+        - abbr: RAM
+          href: https://ark.intel.com/content/www/us/en/ark/products/231800/intel-processor-n95-6m-cache-up-to-3-40-ghz.html
+
+    - 512GB Intel p660:
+        - abbr: NVM
+          href: https://www.intel.com/content/www/us/en/products/docs/memory-storage/solid-state-drives/consumer-ssds/660p-series-brief.html
+
+    - Debian Linux:
+        - abbr: OS
+          href: https://www.debian.org/
+
+- Docker Images:
+
+    - homepage (ghcr.io/benphelps/homepage):
+        - icon: github-light.png
+          href: https://github.com/benphelps/homepage
+
+    - mariadb:
+        - icon: docker.png
+          href: https://hub.docker.com/_/mariadb
+
+    - nginx:
+        - icon: docker.png
+          href: https://hub.docker.com/_/nginx
+
+    - pihole (pihole/pihole):
+        - icon: docker.png
+          href: https://hub.docker.com/r/pihole/pihole
+
+    - portainer (portainer/portainer-ce):
+        - icon: docker.png
+          href: https://hub.docker.com/r/portainer/portainer-ce
+
+    - traefik:
+        - icon: docker.png
+          href: https://hub.docker.com/_/traefik/
+
+    - whoami (traefik/whoami):
+        - icon: docker.png
+          href: https://hub.docker.com/r/traefik/whoami
+
+    - wordpress:
+        - icon: docker.png
+          href: https://hub.docker.com/_/wordpress
+
+    - yourls:
+        - icon: docker.png
+          href: https://hub.docker.com/_/yourls/
+
+- Code:
+
+    - GitHub:
+        - icon: github-light.png
+          href: https://github.com
+
+    - Me @GitHub (github.com/sharedstuff):
+        - icon: github-light.png
+          href: https://github.com/sharedstuff
+
+    - This project @GitHub (github.com/sharedstuff/docker):
+        - icon: github-light.png
+          href: https://github.com/sharedstuff/docker
+
+    - Visual Studio Code:
+        - icon: vscode.png
+          href: https://code.visualstudio.com/
+
+    - Visual Studio Code Web (vscode.dev):
+        - icon: vscode.png
+          href: https://vscode.dev
+
+- Hosting:
+
+    - Hetzner Homepage Webhosting Level1:
+        - icon: https://www.hetzner.com/_resources/themes/hetzner/images/favicons/favicon-96x96.png
+          href: https://www.hetzner.com/webhosting/level-1
+
+    - Hetzner Login:
+        - icon: https://www.hetzner.com/_resources/themes/hetzner/images/favicons/favicon-96x96.png
+          href: https://accounts.hetzner.com/login

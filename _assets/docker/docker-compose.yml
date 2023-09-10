@@ -1,0 +1,48 @@
+networks:
+  traefik:
+    external: true
+
+services:
+
+  # link
+  servicename:
+
+    # image, restart, build, command
+    image: imagename:tagname
+    restart: unless-stopped
+
+    # container_name, hostname, networks, ports
+    container_name: servicename
+    hostname: servicename
+    networks:
+      - traefik
+
+    # env_file, environment
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # config
+      # other volumes
+
+    # healthcheck
+    healthcheck:
+      test: wget -q --spider http://127.0.0.1
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.services.servicename.loadbalancer.server.port=8053
+      - traefik.http.routers.servicename.rule=Host(`servicename.mein-reverseproxy.de`)
+      # homepage
+      - homepage.group=#docker
+      - homepage.name=servicename
+      - homepage.description=link
+      - homepage.showStats=true
+      - homepage.icon=servicename.png
+      - homepage.href=https://servicename.mein-reverseproxy.de
+      - homepage.ping=https://servicename.mein-reverseproxy.de

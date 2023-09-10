@@ -7,7 +7,7 @@ services:
   # ghcr.io/benphelps/homepage
   homepage:
 
-    # image, restart, build
+    # image, restart, build, command
     image: ghcr.io/benphelps/homepage:v0.6.29
     restart: unless-stopped
 
@@ -26,7 +26,7 @@ services:
       # socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # config
-      - ./config:/app/config:ro
+      - ./config/config:/app/config:ro
       - ./config/images:/app/public/images:ro
       # other volumes
       - ./volumes/logs:/app/logs:cached
