@@ -5,22 +5,20 @@ A set of Docker examples
 The following conventions are made  
   
 ## Folder structure  
-### single service  
-```
-\service
-  docker-compose.yml
-  \config
-  \data
-```
-### stack  
 ```
 \stack
-  docker-compose.yml  
+  docker-compose.yml
   \config
+    .env
+    ...
+    \service-a
+    \service-b
+    ...
   \data
-  \service
-    \config
-    \data
+    \volume-a
+    \volume-b
+    ...
+
 ```
 
 ## Network: IPv6  
