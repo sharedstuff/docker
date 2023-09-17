@@ -25,13 +25,13 @@ services:
       - traefik.http.services.servicename.loadbalancer.server.port=8053
       - traefik.http.routers.servicename.rule=Host(`servicename.mein-reverseproxy.de`)
       # homepage
-      - homepage.group=#docker
+      - homepage.group=stackname
       - homepage.name=servicename
-      - homepage.description=link
-      - homepage.showStats=true
+      - homepage.description=image:tag
       - homepage.icon=servicename.png
       - homepage.href=https://servicename.mein-reverseproxy.de
       - homepage.ping=https://servicename.mein-reverseproxy.de
+      - homepage.showStats=true
 
     # container_name, hostname, networks, ports
     container_name: servicename
