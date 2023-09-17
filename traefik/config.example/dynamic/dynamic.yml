@@ -1,21 +1,24 @@
 tls:
+
+  # default generated cert via ACME default resolver
   stores:
     default:
       defaultGeneratedCert:
         resolver: default
         domain:
-          main: '*.yourdomain.tld'
+          main: '*.mein-reverseproxy.de'
 
 http:
 
   # HTTP redirect example
   routers:
     google:
-      rule: "Host(`google.yourdomain.tld`)"
+      rule: "Host(`google.mein-reverseproxy.de`)"
       service: "traefik@docker"
       middlewares: google
+
   middlewares:
     google:
       redirectRegex:
-        regex: "https://google.yourdomain.tld/(.*)"
+        regex: "https://google.mein-reverseproxy.de/(.*)"
         replacement: "https://google.de/${1}"

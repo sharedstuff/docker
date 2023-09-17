@@ -1,4 +1,5 @@
 networks:
+
   traefik:
     external: true
 
@@ -8,9 +9,8 @@ services:
   # https://hub.docker.com/_/alpine/
   whoami:
 
-    # image, restart, build, command
+    # image, build, depends_on, command
     image: traefik/whoami-alpine:v1.10.1-3.18.3
-    restart: unless-stopped
     build:
       context: build
       args:
@@ -23,29 +23,28 @@ services:
       tags:
         - traefik/whoami-alpine:v1.10.1-3.18.3
 
-    # container_name, hostname, networks, ports
-    networks:
-      - traefik
-
-    # env_file, environment
-
-    # volumes
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-
-    # healthcheck
-
     # labels
     labels:
       # traefik
       - traefik.enable=true
       - traefik.http.routers.whoami.rule=Host(`whoami.mein-reverseproxy.de`)
       # homepage
-      - homepage.group=#docker
+      - homepage.group=whoami
       - homepage.name=whoami
-      - homepage.weight=-800
-      - homepage.description=traefik/whoami
-      - homepage.showStats=true
+      - homepage.description=traefik/whoami-alpine:v1.10.1-3.18.3 (build)
       - homepage.icon=traefik.png
       - homepage.href=https://whoami.mein-reverseproxy.de
       - homepage.ping=https://whoami.mein-reverseproxy.de
+      - homepage.showStats=true
+
+    # container_name, hostname, networks, ports
+    networks:
+      - traefik
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+
+    # healthcheck, restart
+    restart: unless-stopped

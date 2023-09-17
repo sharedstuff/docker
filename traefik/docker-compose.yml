@@ -1,4 +1,5 @@
 networks:
+
   traefik:
     external: true
 
@@ -7,9 +8,26 @@ services:
   # https://hub.docker.com/_/traefik
   traefik:
 
-    # image, restart, build, command
+    # image, build, depends_on, command
     image: traefik:v2.10.4
-    restart: unless-stopped
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.routers.traefik.rule=Host(`traefik.mein-reverseproxy.de`)
+      # homepage
+      - homepage.group=traefik
+      - homepage.name=traefik
+      - homepage.description=traefik:v2.10.4
+      - homepage.icon=traefik.png
+      - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
+      - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
+      - homepage.showStats=true
+      # homepage.widget
+      - homepage.widget.type=traefik
+      - homepage.widget.url=https://traefik.mein-reverseproxy.de
 
     # container_name, hostname, networks, ports
     networks:
@@ -32,35 +50,13 @@ services:
       # config
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro
-      # other volumes
-      - ./volumes/letsencrypt:/letsencrypt:cached
+      # data
+      - ./data/letsencrypt:/letsencrypt:cached
 
-    # healthcheck
+    # healthcheck, restart
     healthcheck:
       # Run traefik healthcheck command
       # https://doc.traefik.io/traefik/operations/cli/#healthcheck
       # ! depends on: ping=true
       test: traefik healthcheck --ping
-      timeout: 5s
-      interval: 15s
-      start_period: 10s
-      retries: 3
-
-    # labels
-    labels:
-      # traefik
-      - traefik.enable=true
-      - traefik.http.services.traefik.loadbalancer.server.port=8080
-      - traefik.http.routers.traefik.rule=Host(`traefik.mein-reverseproxy.de`)
-      # homepage
-      - homepage.group=#docker
-      - homepage.name=traefik
-      - homepage.weight=-900
-      - homepage.description=traefik
-      - homepage.showStats=true
-      - homepage.icon=traefik.png
-      - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
-      - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
-      # homepage.widget
-      - homepage.widget.type=traefik
-      - homepage.widget.url=https://traefik.mein-reverseproxy.de
+    restart: unless-stopped

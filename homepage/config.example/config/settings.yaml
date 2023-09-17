@@ -9,17 +9,38 @@ background:
 
 color: neutral
 
-layout:
-
-  '#docker':
-    style: row
-
 logpath: /app
 
 quicklaunch:
   searchDescriptions: true
   hideInternetSearch: true
   hideVisitURL: true
+
+layout:
+  homepage:
+    icon: homepage.png
+    tab: Containers
+    style: row
+  pihole:
+    icon: pi-hole.png
+    tab: Containers
+    style: row
+  portainer:
+    icon: portainer.png
+    tab: Containers
+    style: row
+  traefik:
+    icon: traefik.png
+    tab: Containers
+    style: row
+  whoami:
+    icon: traefik.png
+    tab: Containers
+    style: row
+  wordpress:
+    icon: wordpress.png
+    tab: Stacks
+    style: row
 
 theme: dark
 

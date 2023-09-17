@@ -1,0 +1,98 @@
+Function Invoke-DockerCompose {
+
+    [CmdletBinding()]
+    param (
+
+        [ValidateSet('Restart', 'Up', 'Down')]
+        [string]
+        $Action = 'Up',
+
+        [string]
+        $Name,
+
+        [string]
+        $Filter = '*docker-compose.y*ml',
+
+        [switch]
+        $Pull,
+
+        [switch]
+        $NoBuild,
+
+        [switch]
+        $NoDetach,
+
+        [switch]
+        $NoForceRecreate,
+
+        [switch]
+        $NoRemoveOrphans,
+
+        [switch]
+        $NoRenewAnonVolumes,
+
+        [int]$ThrottleLimit = 4
+
+    )
+
+    $PSDefaultParameterValues['ForEach-Object:ThrottleLimit'] = $ThrottleLimit
+
+    'Performing Action: "{0}"' -f $Action
+
+    # Get and filter files
+    $Files = Get-ChildItem -Recurse -File -Filter $Filter | Select-Object -ExpandProperty FullName
+    if ($Name) { $Files = $Files | Where-Object { $_ -match $Name } }
+
+    'Found the following docker-compose files (matching *docker-compose.y*ml):'
+    $Files
+
+    # switch action to boolean up&down
+    switch ($Action) {
+        'Restart' {
+            $Up = $true
+            $Down = $true
+        }
+        'Up' {
+            $Up = $true
+            $Down = $false
+        }
+        'Down' {
+            $Up = $false
+            $Down = $true
+        }
+    }
+
+    # set specific params to actions
+    $Params = @{
+        up   = @(
+            if ($Pull) { '--pull always' }
+            if (-not $NoBuild) { '--build' }
+            if (-not $NoForceRecreate) { '--force-recreate' }
+            if (-not $NoDetach) { '-d' }
+            if (-not $NoRemoveOrphans) { '--remove-orphans' }
+            if (-not $NoRenewAnonVolumes) { '--renew-anon-volumes' }
+        )
+    }
+    $Params.GetEnumerator() | ForEach-Object {
+        $Name = $_.Name
+        $Params.$Name = ($Params.$Name -join ' ').Trim()
+    }
+
+    # a collection of expressions we want to execute
+    $Expressions = @('down', 'up') | ForEach-Object {
+        if (Get-Variable -Name $_ -ValueOnly) {
+            $Task = $_
+            $Files | ForEach-Object {
+                'docker compose -f "{0}" {1} {2}' -f $PSItem, $Task, $Params.$Task
+            }
+        }
+    }
+
+    # Output
+    'Expressions'
+    $Expressions
+
+    # Do
+    $Expressions | ForEach-Object -Parallel { $PSItem | Invoke-Expression }
+
+}

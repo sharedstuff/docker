@@ -1,0 +1,44 @@
+networks:
+
+  traefik:
+    external: true
+
+services:
+
+  # https://ghcr.io/benphelps/homepage
+  homepage:
+
+    # image, build, depends_on, command
+    image: ghcr.io/benphelps/homepage:v0.6.33
+
+    # labels
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.http.routers.homepage.rule=Host(`homepage.mein-reverseproxy.de`)
+      # homepage
+      - homepage.group=homepage
+      - homepage.name=homepage
+      - homepage.description=ghcr.io/benphelps/homepage:v0.6.33
+      - homepage.icon=homepage.png
+      - homepage.ping=https://homepage.mein-reverseproxy.de
+      - homepage.showStats=true
+
+    # container_name, hostname, networks, ports
+    networks:
+      - traefik
+
+    # volumes
+    volumes:
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+      # socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # config
+      - ./config/config:/app/config:ro
+      - ./config/images:/app/public/images:ro
+      # data volumes
+      - ./data/logs:/app/logs:cached
+
+    # healthcheck, restart
+    restart: unless-stopped

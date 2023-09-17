@@ -13,6 +13,10 @@
         - abbr: CPU
           href: https://ark.intel.com/content/www/us/en/ark/products/231800/intel-processor-n95-6m-cache-up-to-3-40-ghz.html
 
+    - Average CPU Mark 5463:
+        - abbr: CPU
+          href: https://www.cpubenchmark.net/cpu.php?cpu=Intel+N95
+
     - 8 GB DDR4:
         - abbr: RAM
           href: https://ark.intel.com/content/www/us/en/ark/products/231800/intel-processor-n95-6m-cache-up-to-3-40-ghz.html
@@ -58,10 +62,6 @@
     - wordpress:
         - icon: docker.png
           href: https://hub.docker.com/_/wordpress
-
-    - yourls:
-        - icon: docker.png
-          href: https://hub.docker.com/_/yourls/
 
 - Code:
 

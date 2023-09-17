@@ -45,7 +45,6 @@ certificatesResolvers:
       storage: /letsencrypt/acme.json
       dnsChallenge:
         provider: hetzner
-        resolvers: # DNS challenge resolvers = DNS provider authoritive NS
-          - hydrogen.ns.hetzner.com.
-          - oxygen.ns.hetzner.com.
-          - helium.ns.hetzner.de.
+        resolvers:
+          - 8.8.8.8
+          - 1.1.1.1
