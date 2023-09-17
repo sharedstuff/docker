@@ -22,7 +22,7 @@ services:
     labels:
       # traefik
       - traefik.enable=true
-      - traefik.http.services.servicename.loadbalancer.server.port=8053
+      - traefik.http.services.servicename.loadbalancer.server.port=80
       - traefik.http.routers.servicename.rule=Host(`servicename.mein-reverseproxy.de`)
       # homepage
       - homepage.group=stackname
