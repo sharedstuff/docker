@@ -43,10 +43,13 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
       # config
       - ./config/nginx:/etc/nginx/conf.d:ro
+
       # other volumes
       - ./data/wordpress/html:/var/www/html:cached
 
@@ -82,9 +85,11 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
-      # data volumes
+
+      # data
       - ./data/wordpress/html:/var/www/html:cached
 
     # healthcheck, restart
@@ -115,9 +120,11 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
-      # data volumes
+
+      # data
       - ./data/mariadb/mysql:/var/lib/mysql:cached
 
     # healthcheck, restart

@@ -31,8 +31,10 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
       # socket
       - /var/run/docker.sock:/var/run/docker.sock
 

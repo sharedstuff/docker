@@ -46,13 +46,17 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
       # socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
       # config
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro
+      
       # data
       - ./data/letsencrypt:/letsencrypt:cached
 

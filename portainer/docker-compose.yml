@@ -34,13 +34,17 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
       # socket
       - /var/run/docker.sock:/var/run/docker.sock
+
       # config
       - ./config/password:/tmp/password:ro
-      # data volumes
+
+      # data
       - ./data/data:/data:cached
 
     # healthcheck, restart

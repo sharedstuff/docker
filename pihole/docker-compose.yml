@@ -41,9 +41,11 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
-      # data volumes
+
+      # data
       - ./data/pihole:/etc/pihole:cached
       - ./data/dnsmasq.d:/etc/dnsmasq.d:cached
 

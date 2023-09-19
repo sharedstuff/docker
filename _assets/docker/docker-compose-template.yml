@@ -46,13 +46,17 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
       # socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
       # config
       - ./config/a:/etc:ro
-      # data volumes
+
+      # data
       - ./data/a:/var:cached
 
     # healthcheck, restart

@@ -48,6 +48,7 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
 
@@ -85,9 +86,11 @@ services:
 
     # volumes
     volumes:
+
       # localtime
       - /etc/localtime:/etc/localtime:ro
-      # data volumes
+
+      # data
       - ./data/mariadb/mysql:/var/lib/mysql:cached
 
     # healthcheck, restart
