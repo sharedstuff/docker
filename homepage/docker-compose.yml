@@ -13,9 +13,12 @@ services:
 
     # labels
     labels:
+
       # traefik
       - traefik.enable=true
       - traefik.http.routers.homepage.rule=Host(`homepage.mein-reverseproxy.de`)
+      - traefik.http.services.homepage.loadbalancer.server.port=3000
+
       # homepage
       - homepage.group=homepage
       - homepage.name=homepage

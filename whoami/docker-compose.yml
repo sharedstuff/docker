@@ -25,9 +25,12 @@ services:
 
     # labels
     labels:
+
       # traefik
       - traefik.enable=true
       - traefik.http.routers.whoami.rule=Host(`whoami.mein-reverseproxy.de`)
+      - traefik.http.services.whoami.loadbalancer.server.port=80
+
       # homepage
       - homepage.group=whoami
       - homepage.name=whoami

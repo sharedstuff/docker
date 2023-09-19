@@ -13,10 +13,12 @@ services:
 
     # labels
     labels:
+
       # traefik
       - traefik.enable=true
       - traefik.http.routers.portainer.rule=Host(`portainer.mein-reverseproxy.de`)
       - traefik.http.services.portainer.loadbalancer.server.port=9000
+
       # homepage
       - homepage.group=portainer
       - homepage.name=portainer

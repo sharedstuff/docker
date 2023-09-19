@@ -13,10 +13,12 @@ services:
 
     # labels
     labels:
+
       # traefik
       - traefik.enable=true
-      - traefik.http.services.traefik.loadbalancer.server.port=8080
       - traefik.http.routers.traefik.rule=Host(`traefik.mein-reverseproxy.de`)
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+
       # homepage
       - homepage.group=traefik
       - homepage.name=traefik
@@ -25,6 +27,7 @@ services:
       - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
       - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
       - homepage.showStats=true
+
       # homepage.widget
       - homepage.widget.type=traefik
       - homepage.widget.url=https://traefik.mein-reverseproxy.de

@@ -12,10 +12,12 @@ services:
 
     # labels
     labels:
+
       # traefik
       - traefik.enable=true
-      - traefik.http.services.pihole.loadbalancer.server.port=8053
       - traefik.http.routers.pihole.rule=Host(`pihole.mein-reverseproxy.de`)
+      - traefik.http.services.pihole.loadbalancer.server.port=8053
+
       # homepage
       - homepage.group=pihole
       - homepage.name=pihole
