@@ -45,6 +45,10 @@ layout:
     icon: dolibarr.png
     tab: Stacks
     style: row
+  freshrss:
+    icon: freshrss.png
+    tab: Stacks
+    style: row
   wordpress:
     icon: wordpress.png
     tab: Stacks

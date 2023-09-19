@@ -39,6 +39,10 @@
         - icon: docker.png
           href: https://hub.docker.com/r/tuxgasy/dolibarr
 
+    - freshrss (freshrss/freshrss):
+        - icon: docker.png
+          href: https://hub.docker.com/r/freshrss/freshrss
+
     - homepage (ghcr.io/benphelps/homepage):
         - icon: github-light.png
           href: https://github.com/benphelps/homepage
