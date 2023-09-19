@@ -31,6 +31,14 @@
 
 - Docker Images:
 
+    - autoheal (willfarrell/autoheal):
+        - icon: docker.png
+          href: https://hub.docker.com/r/willfarrell/autoheal
+
+    - dolibarr (tuxgasy/dolibarr):
+        - icon: docker.png
+          href: https://hub.docker.com/r/tuxgasy/dolibarr
+
     - homepage (ghcr.io/benphelps/homepage):
         - icon: github-light.png
           href: https://github.com/benphelps/homepage

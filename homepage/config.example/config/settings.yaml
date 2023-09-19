@@ -41,6 +41,10 @@ layout:
     icon: traefik.png
     tab: Containers
     style: row
+  dolibarr:
+    icon: dolibarr.png
+    tab: Stacks
+    style: row
   wordpress:
     icon: wordpress.png
     tab: Stacks
