@@ -81,7 +81,7 @@ services:
     volumes:
       # localtime
       - /etc/localtime:/etc/localtime:ro
-      # other volumes
+      # data volumes
       - ./data/wordpress:/var/www/html:cached
 
     # healthcheck, restart

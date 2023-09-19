@@ -17,6 +17,10 @@ quicklaunch:
   hideVisitURL: true
 
 layout:
+  autoheal:
+    icon: docker.png
+    tab: Containers
+    style: row
   homepage:
     icon: homepage.png
     tab: Containers
