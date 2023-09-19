@@ -25,7 +25,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.wordpress.rule=Host(`wordpress.mein-reverseproxy.de`)
       - traefik.http.services.wordpress.loadbalancer.server.port=80
-      
+
       # homepage
       - homepage.weight=-999
       - homepage.group=wordpress
@@ -78,6 +78,7 @@ services:
     # env_file, environment
     env_file:
       - ./config/.env
+      - ./config/wordpress/.env
 
     # volumes
     volumes:
