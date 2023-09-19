@@ -48,7 +48,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
       # config
-      - ./config/nginx:/etc/nginx/conf.d:ro
+      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
 
       # other volumes
       - ./data/wordpress/html:/var/www/html:cached
@@ -88,6 +88,9 @@ services:
 
       # localtime
       - /etc/localtime:/etc/localtime:ro
+
+      # config
+      - ./config/wordpress/wordpress.ini:/usr/local/etc/php/conf.d/wordpress.ini:ro
 
       # data
       - ./data/wordpress/html:/var/www/html:cached
