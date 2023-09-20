@@ -6,9 +6,9 @@ Function Backup-Docker {
     )
 
     $StartLocation = Get-Location
-    
+
     try {
-        
+
         try { $null = Stop-Transcript } catch {}
 
         $TimeStamp = Get-Date -Format FileDateTimeUniversal
@@ -18,6 +18,7 @@ Function Backup-Docker {
         Set-Location $DockerPath
         Start-Transcript -Path $TranscriptLocation -UseMinimalHeader
 
+        'Compose Down'
         Invoke-DockerCompose -Action Down
 
         # cvpWlf
@@ -28,8 +29,10 @@ Function Backup-Docker {
         # l kinks
         # f use archive file
         # -C / <-- root for verification
-        tar cvpWlf $BackupLocation -C / $DockerPath
+        'tar'
+        tar cvpWlf "$BackupLocation" -C / "$DockerPath"
 
+        'Compose Up'
         Invoke-DockerCompose -Action Up
 
         'successful'
@@ -41,7 +44,7 @@ Function Backup-Docker {
         'error'
         $_
         Stop-Transcript
-        Set-Location $StartLocation    
+        Set-Location $StartLocation
     }
- 
+
 }
