@@ -31,7 +31,11 @@ Function Invoke-DockerCompose {
         [switch]
         $NoRenewAnonVolumes,
 
-        [int]$ThrottleLimit = 4
+        [int]
+        $ThrottleLimit = 4,
+
+        [int]
+        $Depth = 2
 
     )
 
@@ -40,13 +44,13 @@ Function Invoke-DockerCompose {
     'Performing Action: "{0}"' -f $Action
 
     # Get and filter files
-    $Files = Get-ChildItem -Recurse -File -Filter $Filter | Select-Object -ExpandProperty FullName
+    $Files = Get-ChildItem -Recurse -File -Filter $Filter -Depth $Depth | Select-Object -ExpandProperty FullName
     if ($Name) { $Files = $Files | Where-Object { $_ -match $Name } }
 
     'Found the following docker-compose files (matching *docker-compose.y*ml):'
     $Files
 
-    # switch action to boolean up&down
+    # 'switch action to boolean up&down'
     switch ($Action) {
         'Restart' {
             $Up = $true
@@ -62,28 +66,31 @@ Function Invoke-DockerCompose {
         }
     }
 
-    # set specific params to actions
-    $Params = @{
-        up   = @(
-            if ($Pull) { '--pull always' }
-            if (-not $NoBuild) { '--build' }
-            if (-not $NoForceRecreate) { '--force-recreate' }
-            if (-not $NoDetach) { '-d' }
-            if (-not $NoRemoveOrphans) { '--remove-orphans' }
-            if (-not $NoRenewAnonVolumes) { '--renew-anon-volumes' }
-        )
-    }
-    $Params.GetEnumerator() | ForEach-Object {
-        $Name = $_.Name
-        $Params.$Name = ($Params.$Name -join ' ').Trim()
+    # 'set specific params to actions'
+    $ComposeParams = @{
+        up   = @()
     }
 
-    # a collection of expressions we want to execute
+    if ($Pull) { $ComposeParams.Up += '--pull always' }
+    if (-not $NoBuild) { $ComposeParams.Up += '--build' }
+    if (-not $NoForceRecreate) { $ComposeParams.Up += '--force-recreate' }
+    if (-not $NoDetach) { $ComposeParams.Up += '-d' }
+    if (-not $NoRemoveOrphans) { $ComposeParams.Up += '--remove-orphans' }
+    if (-not $NoRenewAnonVolumes) { $ComposeParams.Up += '--renew-anon-volumes' }
+
+    # 'getEnumerator'
+    $ComposeParamStrings = @{}
+    $ComposeParams.GetEnumerator() | ForEach-Object {
+        $Name = $_.Name
+        $ComposeParamStrings.$Name = ($ComposeParams.$Name -join ' ').Trim()
+    }
+
+    # 'a collection of expressions we want to execute'
     $Expressions = @('down', 'up') | ForEach-Object {
         if (Get-Variable -Name $_ -ValueOnly) {
             $Task = $_
             $Files | ForEach-Object {
-                'docker compose -f "{0}" {1} {2}' -f $PSItem, $Task, $Params.$Task
+                'docker compose -f "{0}" {1} {2}' -f $PSItem, $Task, $ComposeParamStrings.$Task
             }
         }
     }
