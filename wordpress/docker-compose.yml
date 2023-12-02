@@ -12,7 +12,7 @@ services:
   nginx:
 
     # image, build, depends_on, command
-    image: nginx:1.25-alpine3.18
+    image: nginx:1.25.3-alpine3.18
     depends_on:
       wordpress:
         condition: service_healthy
@@ -30,7 +30,7 @@ services:
       - homepage.weight=-999
       - homepage.group=wordpress
       - homepage.name=nginx
-      - homepage.description=nginx:1.25-alpine3.18
+      - homepage.description=nginx:1.25.3-alpine3.18
       - homepage.icon=nginx.png
       - homepage.href=https://wordpress.mein-reverseproxy.de
       - homepage.ping=https://wordpress.mein-reverseproxy.de
@@ -62,7 +62,7 @@ services:
   wordpress:
 
     # image, build, depends_on, command
-    image: wordpress:6.3.0-php8.2-fpm-alpine
+    image: wordpress:6.4.1-php8.2-fpm-alpine
     depends_on:
       mariadb:
         condition: service_healthy
@@ -74,7 +74,7 @@ services:
       - homepage.weight=-101
       - homepage.group=wordpress
       - homepage.name=wordpress
-      - homepage.description=wordpress:6.3.0-php8.2-fpm-alpine
+      - homepage.description=wordpress:6.4.1-php8.2-fpm-alpine
       - homepage.icon=wordpress.png
       - homepage.showStats=true
 
@@ -104,7 +104,7 @@ services:
   mariadb:
 
     # image, build, depends_on, command
-    image: mariadb:11.0.3-jammy
+    image: mariadb:11.1.3-jammy
 
     # labels
     labels:
@@ -112,7 +112,7 @@ services:
       - homepage.weight=-100
       - homepage.group=wordpress
       - homepage.name=mariadb
-      - homepage.description=mariadb:11.0.3-jammy
+      - homepage.description=mariadb:11.1.3-jammy
       - homepage.icon=mariadb.png
       - homepage.showStats=true
 
