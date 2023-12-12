@@ -8,7 +8,7 @@ services:
   pihole:
 
     # image, build, depends_on, command
-    image: pihole/pihole:2023.05.2
+    image: pihole/pihole:2023.11.0
 
     # labels
     labels:
@@ -21,7 +21,7 @@ services:
       # homepage
       - homepage.group=pihole
       - homepage.name=pihole
-      - homepage.description=pihole/pihole:2023.05.2
+      - homepage.description=pihole/pihole:2023.11.0
       - homepage.icon=pi-hole.png
       - homepage.href=https://pihole.mein-reverseproxy.de/admin
       - homepage.ping=https://pihole.mein-reverseproxy.de/admin

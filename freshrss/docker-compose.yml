@@ -12,7 +12,7 @@ services:
   freshrss:
 
     # image, build, depends_on, command
-    image: freshrss/freshrss:1.21.0-alpine
+    image: freshrss/freshrss:1.22.1-alpine
     depends_on:
       mariadb:
         condition: service_healthy
@@ -30,7 +30,7 @@ services:
       - homepage.weight=-999
       - homepage.group=freshrss
       - homepage.name=freshrss
-      - homepage.description=freshrss/freshrss:1.21.0-alpine
+      - homepage.description=freshrss/freshrss:1.22.1-alpine
       - homepage.icon=freshrss.png
       - homepage.href=https://freshrss.mein-reverseproxy.de
       - homepage.ping=https://freshrss.mein-reverseproxy.de
@@ -64,7 +64,7 @@ services:
   mariadb:
 
     # image, build, depends_on, command
-    image: mariadb:11.0.3-jammy
+    image: mariadb:11-jammy
 
     # labels
     labels:
@@ -73,7 +73,7 @@ services:
       - homepage.weight=-100
       - homepage.group=freshrss
       - homepage.name=mariadb
-      - homepage.description=mariadb:11.0.3-jammy
+      - homepage.description=mariadb:11-jammy
       - homepage.icon=mariadb.png
       - homepage.showStats=true
 

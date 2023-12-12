@@ -9,7 +9,7 @@ services:
   traefik:
 
     # image, build, depends_on, command
-    image: traefik:v2.10.4
+    image: traefik:v3.0
 
     # labels
     labels:
@@ -22,7 +22,7 @@ services:
       # homepage
       - homepage.group=traefik
       - homepage.name=traefik
-      - homepage.description=traefik:v2.10.4
+      - homepage.description=traefik:v3.0
       - homepage.icon=traefik.png
       - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
       - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
@@ -56,7 +56,7 @@ services:
       # config
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro
-      
+
       # data
       - ./data/letsencrypt:/letsencrypt:cached
 
