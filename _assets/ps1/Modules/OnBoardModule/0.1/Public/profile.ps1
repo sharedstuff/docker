@@ -1,12 +1,17 @@
-'/root/.config/powershell/profile.ps1'
+$MyInvocation.MyCommand.Source
 
-'Get/Set PSRepository PSGallery Trusted'
-if (-not ((Get-PSRepository PSGallery).InstallationPolicy -eq 'Trusted')) { Set-PSRepository PSGallery -InstallationPolicy Trusted }
+$Start = Get-Date
 
-'Adding OnBoardModule to PSModulePath'
-$ModulePath =  Get-Item (Join-Path $PSScriptRoot '../../..')
-if ($Env:PSModulePath -notmatch $ModulePath) { $Env:PSModulePath += (':{0}' -f $ModulePath.FullName) }
+if ($IsLinux) { $PathDelimiter = ':' }
+elseif ($IsWindows) { $PathDelimiter = ';' }
 
-'Install/Import Module DockerCompletion'
-if (-not (Get-InstalledModule DockerCompletion -ErrorAction SilentlyContinue)) { Install-Module DockerCompletion }
-if (-not (Get-Module DockerCompletion)) { Import-Module DockerCompletion }
+'Ensuring presence of OnBoardModulePath in $Env:PSModulePath'
+$OnBoardModulePath = 'ReplacedByInstall-Profile.ps1'
+if ($Env:PSModulePath -notmatch $OnBoardModulePath) {
+    $Env:PSModulePath = $OnBoardModulePath, $Env:PSModulePath -join $PathDelimiter
+}
+
+$End = Get-Date
+
+$TimeSpan = New-TimeSpan -Start $Start -End $End
+'Loading profile.ps1 took {0} Milliseconds' -f $TimeSpan.TotalMilliseconds

@@ -1,0 +1,10 @@
+# default generated cert via ACME default resolver
+
+tls:
+
+  stores:
+    default:
+      defaultGeneratedCert:
+        resolver: default
+        domain:
+          main: '*.mein-reverseproxy.de'

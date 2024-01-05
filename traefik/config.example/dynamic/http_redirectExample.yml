@@ -1,16 +1,7 @@
-tls:
-
-  # default generated cert via ACME default resolver
-  stores:
-    default:
-      defaultGeneratedCert:
-        resolver: default
-        domain:
-          main: '*.mein-reverseproxy.de'
+# HTTP redirect example
 
 http:
 
-  # HTTP redirect example
   routers:
     google:
       rule: "Host(`google.mein-reverseproxy.de`)"

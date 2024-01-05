@@ -1,3 +1,7 @@
-*/data/
-*/config/
+# Everything
+*/data
+*/config
 fritztv
+snipeit
+dns
+bind9
