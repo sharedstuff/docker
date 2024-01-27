@@ -1,0 +1,40 @@
+services:
+
+  # https://hub.docker.com/r/ubuntu/bind9
+  bind9:
+
+    # image, build, depends_on, command
+    image: ubuntu/bind9
+
+    # labels
+    labels:
+
+      # homepage
+      - homepage.group=bind9
+      - homepage.name=bind9
+      - homepage.description=ubuntu/bind9
+      - homepage.icon=ubuntu.png
+      - homepage.showStats=true
+
+    # env_file, environment
+    environment:
+      - BIND9_USER=root
+
+    # container_name, hostname, networks, ports
+    container_name: bind9
+    hostname: bind9
+    ports:
+      - 192.168.0.1:53:53/tcp
+      - 192.168.0.1:53:53/udp
+
+    # volumes
+    volumes:
+
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+
+      # config
+      - ./config/etc_bind:/etc/bind:ro
+
+    # healthcheck, restart
+    restart: unless-stopped

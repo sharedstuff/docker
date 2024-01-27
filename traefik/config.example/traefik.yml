@@ -20,17 +20,32 @@ providers:
 
 entryPoints:
 
-  web:
+  internal-legacy:
     address: :80
     http:
       # upgrade all http requests to https
       redirections:
         entrypoint:
-          to: websecure
+          to: internal
           scheme: https
 
-  websecure:
+  internal:
     address: :443
+    http:
+      tls:
+        certResolver: default # default resolver
+
+  external-legacy:
+    address: :980
+    http:
+      # upgrade all http requests to https
+      redirections:
+        entrypoint:
+          to: external
+          scheme: https
+
+  external:
+    address: :9443
     http:
       tls:
         certResolver: default # default resolver
@@ -46,5 +61,7 @@ certificatesResolvers:
       dnsChallenge:
         provider: hetzner
         resolvers:
-          - 8.8.8.8
           - 1.1.1.1
+          - 1.0.0.1
+          - 8.8.8.8
+          - 8.8.4.4

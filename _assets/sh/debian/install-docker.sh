@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # to uninstall prior versions:
-# for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt remove -y $pkg; done
+for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt remove -y $pkg; done
 
 # ---
 # https://docs.docker.com/engine/install/debian/

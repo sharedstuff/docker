@@ -7,4 +7,4 @@ tls:
       defaultGeneratedCert:
         resolver: default
         domain:
-          main: '*.mein-reverseproxy.de'
+          main: '*.local.mein-reverseproxy.de'

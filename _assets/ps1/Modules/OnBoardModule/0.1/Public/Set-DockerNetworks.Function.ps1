@@ -24,6 +24,12 @@ function Set-DockerNetworks {
                 SubnetV6 = 'fd00::3:0/120'
                 Recreate = $true
             }
+            @{
+                Name     = 'dns'
+                SubnetV4 = '172.19.0.0/24'
+                SubnetV6 = 'fd00::4:0/120'
+                Recreate = $true
+            }
         )
 
     )

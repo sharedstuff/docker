@@ -26,9 +26,9 @@ All examples utilize IPv6
 https://github.com/sharedstuff/Docker-IPv6-HowTo  
   
 ## Network: traefik  
-All examples rely on a network called "traefik" to connect to the reverse proxy  
+All examples rely on a pre-created network  
 ```
-docker network create --ipv6 --subnet 172.18.0.0/16 --subnet fd00::3:0/112 traefik
+docker network create --ipv6 --subnet 172.18.0.0/24 --subnet fd00::3:0/120 traefik
 ```
   
 # Assets included  
@@ -40,6 +40,7 @@ docker network create --ipv6 --subnet 172.18.0.0/16 --subnet fd00::3:0/112 traef
 
 - `docker-compose-template.yml`  
   a docker compose template  
+  
 ## ps1  
 OnBoardModule  
   
@@ -69,8 +70,4 @@ OnBoardModule
   a simple docker install script  
 - `install-powershell.sh`  
   a simple powershell install script  
-  
-# Demo  
-see a live demo on:  
-https://homepage.mein-reverseproxy.de  
   

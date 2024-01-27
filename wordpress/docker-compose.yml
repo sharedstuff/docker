@@ -23,7 +23,8 @@ services:
 
       # traefik
       - traefik.enable=true
-      - traefik.http.routers.wordpress.rule=Host(`wordpress.mein-reverseproxy.de`)
+      - traefik.http.routers.wordpress.entrypoints=internal,external
+      - traefik.http.routers.wordpress.rule=Host(`wordpress.local.mein-reverseproxy.de`)
       - traefik.http.services.wordpress.loadbalancer.server.port=80
 
       # homepage
@@ -32,8 +33,8 @@ services:
       - homepage.name=nginx
       - homepage.description=nginx:1.25-alpine
       - homepage.icon=nginx.png
-      - homepage.href=https://wordpress.mein-reverseproxy.de
-      - homepage.ping=https://wordpress.mein-reverseproxy.de
+      - homepage.href=https://wordpress.local.mein-reverseproxy.de
+      - homepage.ping=https://wordpress.local.mein-reverseproxy.de
       - homepage.showStats=true
 
     # container_name, hostname, networks, ports
@@ -62,7 +63,7 @@ services:
   wordpress:
 
     # image, build, depends_on, command
-    image: wordpress:6.4.1-php8.2-fpm-alpine
+    image: wordpress:6.4.2-php8.3-fpm-alpine
     depends_on:
       mariadb:
         condition: service_healthy
@@ -74,7 +75,7 @@ services:
       - homepage.weight=-101
       - homepage.group=wordpress
       - homepage.name=wordpress
-      - homepage.description=wordpress:6.4.1-php8.2-fpm-alpine
+      - homepage.description=wordpress:6.4.2-php8.3-fpm-alpine
       - homepage.icon=wordpress.png
       - homepage.showStats=true
 

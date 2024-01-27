@@ -1,0 +1,22 @@
+; base zone file for local.mein-reverseproxy.de
+
+$TTL 2d    ; default TTL for zone
+
+$ORIGIN local.mein-reverseproxy.de. ; base domain-name
+
+; Start of Authority RR defining the key characteristics of the zone (domain)
+@         IN      SOA   ns.local.mein-reverseproxy.de. webmaster.mein-reverseproxy.de. (
+                                2312271348 ; serial number
+                                12h        ; refresh
+                                15m        ; update retry
+                                3w         ; expiry
+                                2h         ; minimum
+                                )
+
+           IN      NS      ns.local.mein-reverseproxy.de.
+
+; records
+
+@           IN      A       192.168.0.1
+ns          IN      A       192.168.0.1
+*           IN      A       192.168.0.1

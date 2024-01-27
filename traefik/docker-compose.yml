@@ -16,7 +16,8 @@ services:
 
       # traefik
       - traefik.enable=true
-      - traefik.http.routers.traefik.rule=Host(`traefik.mein-reverseproxy.de`)
+      - traefik.http.routers.traefik.entrypoints=internal
+      - traefik.http.routers.traefik.rule=Host(`traefik.local.mein-reverseproxy.de`)
       - traefik.http.services.traefik.loadbalancer.server.port=8080
 
       # homepage
@@ -24,20 +25,24 @@ services:
       - homepage.name=traefik
       - homepage.description=traefik:v3.0
       - homepage.icon=traefik.png
-      - homepage.href=https://traefik.mein-reverseproxy.de/dashboard
-      - homepage.ping=https://traefik.mein-reverseproxy.de/dashboard
+      - homepage.href=https://traefik.local.mein-reverseproxy.de/dashboard
+      - homepage.ping=https://traefik.local.mein-reverseproxy.de/dashboard
       - homepage.showStats=true
 
       # homepage.widget
       - homepage.widget.type=traefik
-      - homepage.widget.url=https://traefik.mein-reverseproxy.de
+      - homepage.widget.url=https://traefik.local.mein-reverseproxy.de
 
     # container_name, hostname, networks, ports
+    container_name: traefik
+    hostname: traefik
     networks:
       - traefik
     ports:
       - 80:80
       - 443:443
+      - 980:980
+      - 9443:9443
       - 8080:8080
 
     # env_file, environment

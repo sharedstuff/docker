@@ -9,25 +9,28 @@ services:
   homepage:
 
     # image, build, depends_on, command
-    image: ghcr.io/gethomepage/homepage:v0.8.3
+    image: ghcr.io/gethomepage/homepage:v0.8.7
 
     # labels
     labels:
 
       # traefik
       - traefik.enable=true
-      - traefik.http.routers.homepage.rule=Host(`homepage.mein-reverseproxy.de`)
+      - traefik.http.routers.homepage.entrypoints=internal
+      - traefik.http.routers.homepage.rule=Host(`homepage.local.mein-reverseproxy.de`)
       - traefik.http.services.homepage.loadbalancer.server.port=3000
 
       # homepage
       - homepage.group=homepage
       - homepage.name=homepage
-      - homepage.description=ghcr.io/gethomepage/homepage:v0.8.3
+      - homepage.description=ghcr.io/gethomepage/homepage:v0.8.7
+      - homepage.ping=https://homepage.local.mein-reverseproxy.de
       - homepage.icon=homepage.png
-      - homepage.ping=https://homepage.mein-reverseproxy.de
       - homepage.showStats=true
 
     # container_name, hostname, networks, ports
+    container_name: homepage
+    hostname: homepage
     networks:
       - traefik
 
@@ -41,11 +44,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
       # config
-      - ./config/config:/app/config
-      - ./config/images:/app/public/images:ro
+      - ./config/app_config:/app/config
+      - ./config/app_public_images:/app/public/images:ro
 
       # data
-      - ./data/logs:/app/logs:cached
+      - ./data/app_logs:/app/logs:cached
 
     # healthcheck, restart
     restart: unless-stopped

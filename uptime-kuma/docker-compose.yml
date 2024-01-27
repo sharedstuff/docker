@@ -1,0 +1,53 @@
+networks:
+
+  traefik:
+    external: true
+
+services:
+
+  # https://hub.docker.com/r/louislam/uptime-kuma
+  uptime-kuma:
+
+    # image, build, depends_on, command
+    image: louislam/uptime-kuma:1
+
+    # labels
+    labels:
+
+      # traefik
+      - traefik.enable=true
+      - traefik.http.routers.uptime-kuma.entrypoints=internal
+      - traefik.http.routers.uptime-kuma.rule=Host(`uptime-kuma.local.mein-reverseproxy.de`)
+      - traefik.http.services.uptime-kuma.loadbalancer.server.port=3001
+
+      # homepage
+      - homepage.group=uptime-kuma
+      - homepage.name=uptime-kuma
+      - homepage.description=louislam/uptime-kuma:1
+      - homepage.icon=uptime-kuma.png
+      - homepage.href=https://uptime-kuma.local.mein-reverseproxy.de
+      - homepage.ping=https://uptime-kuma.local.mein-reverseproxy.de
+      - homepage.showStats=true
+
+    # container_name, hostname, networks, ports
+    container_name: uptime-kuma
+    hostname: uptime-kuma
+    networks:
+      - traefik
+
+    # env_file, environment
+
+    # volumes
+    volumes:
+
+      # localtime
+      - /etc/localtime:/etc/localtime:ro
+
+      # socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      # data
+      - ./data/app_data:/app/data:cached
+
+    # healthcheck, restart
+    restart: unless-stopped

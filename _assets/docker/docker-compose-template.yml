@@ -15,7 +15,9 @@ services:
     image: imagename:tagname
     build: path
     depends_on:
-      - serviceName
+      dependingservice:
+        condition: service_healthy
+        restart: true
     command: command
 
     # labels
@@ -23,7 +25,8 @@ services:
 
       # traefik
       - traefik.enable=true
-      - traefik.http.routers.servicename.rule=Host(`servicename.mein-reverseproxy.de`)
+      - traefik.http.routers.servicename.entrypoints=internal
+      - traefik.http.routers.servicename.rule=Host(`servicename.local.mein-reverseproxy.de`)
       - traefik.http.services.servicename.loadbalancer.server.port=80
 
       # homepage
@@ -31,8 +34,8 @@ services:
       - homepage.name=servicename
       - homepage.description=imagename:tagname
       - homepage.icon=servicename.png
-      - homepage.href=https://servicename.mein-reverseproxy.de
-      - homepage.ping=https://servicename.mein-reverseproxy.de
+      - homepage.href=https://servicename.local.mein-reverseproxy.de
+      - homepage.ping=https://servicename.local.mein-reverseproxy.de
       - homepage.showStats=true
 
     # container_name, hostname, networks, ports
@@ -43,6 +46,8 @@ services:
       - traefik
 
     # env_file, environment
+    env_file:
+      - ./config/.env
 
     # volumes
     volumes:
@@ -54,10 +59,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
       # config
-      - ./config/a:/etc:ro
+      - ./config/servicename/etc:/etc:ro
 
       # data
-      - ./data/a:/var:cached
+      - ./data/servicename/var:/var:cached
 
     # healthcheck, restart
     healthcheck:
