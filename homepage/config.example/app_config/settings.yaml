@@ -1,0 +1,51 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/settings
+
+background:
+  blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 50 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 75 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 25 # 0-100
+
+color: neutral
+
+logpath: /app
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  hideVisitURL: true
+
+theme: dark
+
+title: homepage
+
+layout:
+
+  bind9:
+    icon: ubuntu.png
+    style: row
+
+  homepage:
+    icon: homepage.png
+    style: row
+
+  fritztv:
+    icon: nginx.png
+    style: row
+
+  traefik:
+    icon: traefik.png
+    style: row
+
+  uptime-kuma:
+    icon: uptime-kuma.png
+    style: row
+
+  whoami:
+    icon: traefik.png
+    style: row
+
+  wordpress:
+    icon: wordpress.png
+    style: row
