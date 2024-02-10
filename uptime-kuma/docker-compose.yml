@@ -30,8 +30,6 @@ services:
       - homepage.showStats=true
 
     # container_name, hostname, networks, ports
-    container_name: uptime-kuma
-    hostname: uptime-kuma
     networks:
       - traefik
 

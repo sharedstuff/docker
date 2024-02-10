@@ -45,8 +45,6 @@ services:
       - homepage.showStats=true
 
     # container_name, hostname, networks, ports
-    container_name: whoami
-    hostname: whoami
     networks:
       - traefik
 

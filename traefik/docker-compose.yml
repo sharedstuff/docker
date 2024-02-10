@@ -34,8 +34,6 @@ services:
       - homepage.widget.url=https://traefik.local.mein-reverseproxy.de
 
     # container_name, hostname, networks, ports
-    container_name: traefik
-    hostname: traefik
     networks:
       - traefik
     ports:

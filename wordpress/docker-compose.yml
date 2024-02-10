@@ -49,10 +49,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
       # config
-      - ./config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./config/nginx/etc_nginx_conf_d:/etc/nginx/conf.d:ro
 
       # other volumes
-      - ./data/wordpress/html:/var/www/html:cached
+      - ./data/wordpress/var_www_html:/var/www/html:cached
 
     # healthcheck, restart
     healthcheck:
@@ -94,7 +94,7 @@ services:
       - ./config/wordpress/wordpress.ini:/usr/local/etc/php/conf.d/wordpress.ini:ro
 
       # data
-      - ./data/wordpress/html:/var/www/html:cached
+      - ./data/wordpress/var_www_html:/var/www/html:cached
 
     # healthcheck, restart
     healthcheck:
@@ -129,7 +129,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
       # data
-      - ./data/mariadb/mysql:/var/lib/mysql:cached
+      - ./data/mariadb/var_lib_mysql:/var/lib/mysql:cached
 
     # healthcheck, restart
     healthcheck:

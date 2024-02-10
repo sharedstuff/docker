@@ -21,11 +21,7 @@ services:
       - BIND9_USER=root
 
     # container_name, hostname, networks, ports
-    container_name: bind9
-    hostname: bind9
-    ports:
-      - 192.168.0.1:53:53/tcp
-      - 192.168.0.1:53:53/udp
+    network_mode: host
 
     # volumes
     volumes:
@@ -35,6 +31,10 @@ services:
 
       # config
       - ./config/etc_bind:/etc/bind:ro
+
+      # data
+      - ./data/var_cache_bind:/var/cache/bind
+      - ./data/var_lib_bind:/var/lib/bind
 
     # healthcheck, restart
     restart: unless-stopped
