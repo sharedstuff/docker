@@ -63,7 +63,7 @@ services:
   wordpress:
 
     # image, build, depends_on, command
-    image: wordpress:6.4.2-php8.3-fpm-alpine
+    image: wordpress:6.4.3-php8.3-fpm-alpine
     depends_on:
       mariadb:
         condition: service_healthy
@@ -75,7 +75,7 @@ services:
       - homepage.weight=-101
       - homepage.group=wordpress
       - homepage.name=wordpress
-      - homepage.description=wordpress:6.4.2-php8.3-fpm-alpine
+      - homepage.description=wordpress:6.4.3-php8.3-fpm-alpine
       - homepage.icon=wordpress.png
       - homepage.showStats=true
 

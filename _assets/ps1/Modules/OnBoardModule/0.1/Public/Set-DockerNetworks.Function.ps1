@@ -20,14 +20,8 @@ function Set-DockerNetworks {
         $InputObjectArray = @(
             @{
                 Name     = 'traefik'
-                SubnetV4 = '172.18.0.0/24'
-                SubnetV6 = 'fd00::3:0/120'
-                Recreate = $true
-            }
-            @{
-                Name     = 'dns'
-                SubnetV4 = '172.19.0.0/24'
-                SubnetV6 = 'fd00::4:0/120'
+                SubnetV4 = '172.18.0.0/16'
+                SubnetV6 = 'fd00::18:0/112'
                 Recreate = $true
             }
         )

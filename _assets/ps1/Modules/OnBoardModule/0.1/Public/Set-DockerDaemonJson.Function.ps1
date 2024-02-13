@@ -18,8 +18,8 @@ Function Set-DockerDaemonJson {
         [object]
         $InputObject = [ordered]@{
             experimental            = $true
-            'fixed-cidr'            = '172.16.0.0/24'
-            'fixed-cidr-v6'         = 'fd00::1:0/120'
+            'fixed-cidr'            = '172.16.0.0/16'
+            'fixed-cidr-v6'         = 'fd00::16:0/112'
             ip6tables               = $true
             ipv6                    = $true
             'default-address-pools' = @(
@@ -28,7 +28,7 @@ Function Set-DockerDaemonJson {
                     size = 24
                 },
                 [ordered]@{
-                    base = 'fd00::2:0/112'
+                    base = 'fd00::17:0/112'
                     size = 120
                 }
             )

@@ -28,7 +28,7 @@ https://github.com/sharedstuff/Docker-IPv6-HowTo
 ## Network: traefik  
 All examples rely on a pre-created network  
 ```
-docker network create --ipv6 --subnet 172.18.0.0/24 --subnet fd00::3:0/120 traefik
+docker network create --ipv6 --subnet 172.18.0.0/24 --subnet fd00::18:0/112 traefik
 ```
   
 # Assets included  
@@ -65,9 +65,19 @@ OnBoardModule
 - `Remove-DockerImage`  
   removes docker images matching a regex  
   
+-`Set-DockerDaemonJson`  
+  sets the Docker daemon file  
+  
+-`Set-DockerNetworks`  
+  sets/creates custom networks  
+  
+-`Update-DockerImages`  
+  wrapper for docker pull  
+  
 ## sh  
 - `install-docker.sh`  
   a simple docker install script  
+  
 - `install-powershell.sh`  
   a simple powershell install script  
   
