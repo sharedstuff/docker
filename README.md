@@ -65,19 +65,19 @@ OnBoardModule
 - `Remove-DockerImage`  
   removes docker images matching a regex  
   
--`Set-DockerDaemonJson`  
+- `Set-DockerDaemonJson`  
   sets the Docker daemon file  
   
--`Set-DockerNetworks`  
+- `Set-DockerNetworks`  
   sets/creates custom networks  
   
--`Update-DockerImages`  
+- `Update-DockerImages`  
   wrapper for docker pull  
   
 ## sh  
 - `install-docker.sh`  
   a simple docker install script  
-  
+
 - `install-powershell.sh`  
   a simple powershell install script  
   
